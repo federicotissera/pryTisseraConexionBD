@@ -10,24 +10,33 @@ namespace pryTisseraConexionBD
     internal class clsConexion
     {
 
-        string connectionString = "Server=E:/Escritorio/pryTisseraConexionBD;Database=Comercio;Trusted_Connection=True;";
-        public SqlConnection connection { get; set; }
-        public SqlConnection conexion()
-        {
-            SqlConnection connection = new SqlConnection(connectionString);
+        //cadena de conexion
+        string cadenaConexion = "Server=localhost;Database=Comercio;Trusted_Connection=True;";
 
+        //conector
+        SqlConnection coneccionBaseDatos;
+
+        //comando
+        SqlCommand comandoBaseDatos;
+
+        public string nombreBaseDeDatos;
+
+
+        public void ConectarBD()
+        {
             try
             {
-                connection.Open();
-                MessageBox.Show("✅ Conexión exitosa a la base de datos.");
-                return connection;
- 
+                coneccionBaseDatos = new SqlConnection(cadenaConexion);
 
+                nombreBaseDeDatos = coneccionBaseDatos.Database;
+
+                coneccionBaseDatos.Open();
+
+                MessageBox.Show("Conectado a " + nombreBaseDeDatos);
             }
-            catch (Exception ex)
+            catch (Exception error)
             {
-                MessageBox.Show(ex.Message);
-                return connection;
+                MessageBox.Show("Tiene un errorcito - " + error.Message);
             }
 
         }
